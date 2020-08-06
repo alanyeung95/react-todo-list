@@ -1,12 +1,16 @@
 import React from "react";
-import { HashRouter } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import { TopBlock } from "../TopBlock";
+import { MyTasks } from "../MyTasks";
 
 class Main extends React.Component {
   render() {
     return (
       <HashRouter>
-        <TopBlock />
+        <div>
+          <TopBlock />
+          <Route exact path="/" component={MyTasks} />
+        </div>
       </HashRouter>
     );
   }

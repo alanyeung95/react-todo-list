@@ -3,5 +3,4 @@ import ReactDOM from "react-dom";
 import { Main } from "./components/Main";
 import { InputTask } from "./components/InputTask";
 
-//ReactDOM.render(<Main />, document.getElementById("root"));
-ReactDOM.render(<InputTask />, document.getElementById("root"));
+ReactDOM.render(<Main />, document.getElementById("root"));
