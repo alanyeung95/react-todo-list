@@ -26,3 +26,82 @@ body {
   height: 70px; /*改變高度因為要扣底線的粗5px不然會凸出來*/
   border-bottom: solid 5px #00408b; /*設定下底線的樣式、粗細、顏色*/
 }
+
+.inputName {
+  padding-left: 50px;
+  padding-top: 25px;
+}
+
+.inputTasksForm {
+  width: 620px;
+  margin: 0 auto;
+}
+
+.inputTask {
+  height: 385px;
+  background: #f2f2f2;
+  text-align: left;
+}
+
+/*輸入框的縮排比文字還要裡面*/
+.inputForm {
+  padding-left: 75px;
+}
+/*輸入框去除框線和調整字體大小*/
+.inputStyle {
+  border: none;
+  font-size: 16px;
+}
+/*日期匡要調整長寬，看起來比較順眼*/
+.inputDateTime {
+  height: 35px;
+  width: 162px;
+}
+/*共同樣式，長、寬、字體大小、對齊、取消框線*/
+.addButton {
+  width: 310px;
+  height: 60px;
+  font-size: 24px;
+  text-align: center;
+  border: none;
+}
+/*分別設定按鈕顏色及字的顏色*/
+.saveButton {
+  background: #4a90e2;
+  color: #ffffff;
+}
+.cancelButton {
+  background: #fffffd;
+  color: #d0021b;
+}
+
+.inputTaskTitle {
+  width: 620px;
+  height: 75px;
+  background: #f2f2f2;
+  margin: 0px auto;
+  text-align: left;
+  border-bottom: solid 3px #c8c8c8;
+}
+
+.taskTitle {
+  background: #f2f2f2;
+  border: none;
+  height: 28px;
+  width: 380px;
+  font-size: 24px;
+  margin: 25px;
+}
+/*要把勾選框變兩倍大，還要距離左邊界一些距離*/
+.taskChk {
+  margin-left: 20px;
+  zoom: 2;
+}
+
+.icon {
+  margin-left: 20px;
+}
+
+.icon_edit {
+  color: #4a90e2;
+}
