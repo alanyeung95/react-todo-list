@@ -1,12 +1,17 @@
 import React from "react";
-import { InputTask } from "../InputTask";
+import { connect } from "react-redux";
 
-class List extends React.Component {
+import { InputTask } from "../InputTask";
+import { editTodoList } from "../../actions";
+
+class ConnectList extends React.Component {
   constructor(props) {
     super(props);
     this.changeState = this.changeState.bind(this);
     this.openEdit = this.openEdit.bind(this);
     this.closeEdit = this.closeEdit.bind(this);
+    //在constructor中指定執行時的this
+    this.updateTodolist = this.updateTodolist.bind(this);
 
     this.state = {
       // 然後因為在顯示事項的時候，也可以同時標記已完成和是否重要
@@ -22,12 +27,16 @@ class List extends React.Component {
   changeState(type) {
     switch (type) {
       case "complete": {
-        this.setState({ complete: window.event.target.checked });
+        this.setState(
+          { complete: window.event.target.checked },
+          this.updateTodolist
+        );
         break;
       }
       case "important": {
-        if (this.state.important == "") this.setState({ important: "Y" });
-        else this.setState({ important: "" });
+        if (this.state.important == "")
+          this.setState({ important: "Y" }, this.updateTodolist);
+        else this.setState({ important: "" }, this.updateTodolist);
         break;
       }
     }
@@ -43,7 +52,12 @@ class List extends React.Component {
 
       this.setState({
         editTasks: (
-          <InputTask closeAdd={this.closeEdit} listData={this.props.listData} />
+          <InputTask
+            closeAdd={this.closeEdit}
+            listData={this.props.listData}
+            changeState={this.changeState.bind(this)}
+            editTodoList={this.props.editTodoList}
+          />
         ),
       });
     }
@@ -52,6 +66,19 @@ class List extends React.Component {
   closeEdit() {
     this.list.current.style.display = "";
     this.setState({ editTasks: null });
+  }
+
+  updateTodolist() {
+    //複製一份新的物件，為該代辦事項的資料
+    let updateList = Object.assign({}, this.props.listData);
+    //用之前學過的解構賦值把complete和important兩個欄位替換成state的值
+    updateList = {
+      ...updateList,
+      complete: this.state.complete,
+      important: this.state.important,
+    };
+    //透過editTodoList丟到redux更新
+    this.props.editTodoList(updateList);
   }
 
   render() {
@@ -118,4 +145,13 @@ class List extends React.Component {
   }
 }
 
+// TOSTUDY
+const mapDispatchToProps = (dispatch) => {
+  return {
+    editTodoList: (todoList) => dispatch(editTodoList(todoList)),
+  };
+};
+
+//因為只用到事件沒用到資料，所以第一個參數給null
+const List = connect(null, mapDispatchToProps)(ConnectList);
 export { List };

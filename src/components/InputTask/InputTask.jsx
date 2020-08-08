@@ -28,6 +28,22 @@ class ConnectInputTask extends React.Component {
 
     // Refs provide a way to access DOM nodes or React elements created in the render method.
     this.filebox = React.createRef();
+
+    //如果有該事件就執行，沒有代表是新增狀態，並重新命名為changeListState
+    this.changeListState = (type) => {
+      if (this.props.changeState) this.props.changeState(type);
+      else console.log("新增狀態所以沒有this.props.changeState");
+    };
+  }
+
+  tagImportant() {
+    if (this.state.important === "") {
+      this.setState({ important: "Y" });
+    } else {
+      this.setState({ important: "" });
+    }
+    //一併更新狀態到外面的`List`組件去
+    this.changeListState("important");
   }
 
   changeState(event) {
@@ -60,11 +76,15 @@ class ConnectInputTask extends React.Component {
     if (this.state.name === "") {
       alert("待辦事項名稱未輸入！");
     } else {
-      //因為state就存著資料，所以直接把state送給他新增
-      this.props.addTodoList(this.state);
-      alert("成功新增！");
-      //關閉新增畫面
-      this.props.closeAdd();
+      // use id to check if it is edit or not
+      if (this.state.id === "") {
+        this.props.addTodoList(this.state);
+        alert("成功新增！");
+      } else {
+        this.props.editTodoList(this.state);
+        alert("編輯成功！");
+      }
+
       //初始化資料資料
       this.setState({
         id: "",
@@ -78,6 +98,9 @@ class ConnectInputTask extends React.Component {
       });
       //不受控組件另外處理
       this.filebox.current.value = "";
+      //關閉新增畫面
+      this.props.closeAdd();
+      // 上方我是編輯後就將表單關掉，如果表單要停留在編輯畫面的話就把最後那三行放到alert('成功新增！')下面。
     }
   }
 
