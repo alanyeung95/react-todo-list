@@ -1,15 +1,22 @@
 import React from "react";
+import { InputTask } from "../InputTask";
 
 class List extends React.Component {
   constructor(props) {
     super(props);
+    this.changeState = this.changeState.bind(this);
+    this.openEdit = this.openEdit.bind(this);
+    this.closeEdit = this.closeEdit.bind(this);
+
     this.state = {
       // 然後因為在顯示事項的時候，也可以同時標記已完成和是否重要
       // state只需要紀錄會變化的資料，所以只填寫兩個欄位，其他固定無法修改的就用props處理。
       important: this.props.listData.important,
       complete: this.props.listData.complete,
+      editTasks: null,
     };
-    this.changeState = this.changeState.bind(this);
+
+    this.list = React.createRef();
   }
 
   changeState(type) {
@@ -26,19 +33,42 @@ class List extends React.Component {
     }
   }
 
+  openEdit(event) {
+    // 從event判斷如果class不含fa-star和taskChk才顯示編輯畫面
+    if (
+      event.target.className.indexOf("fa-star") === -1 &&
+      event.target.className.indexOf("taskChk") === -1
+    ) {
+      this.list.current.style.display = "none";
+
+      this.setState({
+        editTasks: (
+          <InputTask closeAdd={this.closeEdit} listData={this.props.listData} />
+        ),
+      });
+    }
+  }
+
+  closeEdit() {
+    this.list.current.style.display = "";
+    this.setState({ editTasks: null });
+  }
+
   render() {
     return (
       <div class="listBlock">
         <div
           class={" list " + (this.state.important == "Y" ? " important " : "")}
+          onClick={this.openEdit}
+          ref={this.list}
         >
+          > >
           <input
             type="checkbox"
             class="taskChk"
             checked={this.state.complete}
             onChange={this.changeState.bind(this, "complete")}
           />
-
           <input
             type="text"
             class={
@@ -48,7 +78,6 @@ class List extends React.Component {
             }
             value={this.props.listData.name}
           />
-
           <i
             class={
               this.state.important == "Y"
@@ -57,7 +86,6 @@ class List extends React.Component {
             }
             onClick={this.changeState.bind(this, "important")}
           ></i>
-
           <i class="fas fa-pen fa-lg icon"></i>
           <div class="listIcon">
             {this.props.listData.date != "" ? (
@@ -82,6 +110,9 @@ class List extends React.Component {
             )}
           </div>
         </div>
+
+        {/*在這裡固定輸出this.state.editTasks*/}
+        <div>{this.state.editTasks}</div>
       </div>
     );
   }

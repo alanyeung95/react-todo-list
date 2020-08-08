@@ -7,17 +7,20 @@ import { addTodoList } from "../../actions";
 class ConnectInputTask extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      id: "",
-      name: "",
-      date: "",
-      time: "",
-      file: "",
-      commit: "",
-      important: "",
-      complete: false,
-    };
-
+    if (this.props.listData) {
+      this.state = this.props.listData;
+    } else {
+      this.state = {
+        id: "",
+        name: "",
+        date: "",
+        time: "",
+        file: "",
+        commit: "",
+        important: "",
+        complete: false,
+      };
+    }
     // course those function are using "this", so we bind "this" here
     this.changeState = this.changeState.bind(this);
     this.submitTodo = this.submitTodo.bind(this);
