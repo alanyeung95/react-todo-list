@@ -74,15 +74,15 @@ class ConnectInputTask extends React.Component {
   submitTodo() {
     //先檢查資料，至少要有名稱
     if (this.state.name === "") {
-      alert("待辦事項名稱未輸入！");
+      alert("task name is needed");
     } else {
       // use id to check if it is edit or not
       if (this.state.id === "") {
         this.props.addTodoList(this.state);
-        alert("成功新增！");
+        alert("task is added!");
       } else {
         this.props.editTodoList(this.state);
-        alert("編輯成功！");
+        alert("task updated!");
       }
 
       //初始化資料資料
