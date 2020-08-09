@@ -1,8 +1,10 @@
 const path = require("path");
+
 module.exports = {
+  watch: true,
   entry: ["./src/index.jsx"],
   output: {
-    filename: "src/bundle.js",
+    filename: "src/bundle1.js",
     path: path.resolve(__dirname, "./"),
   },
   //將loader的設定寫在module的rules屬性中
@@ -26,10 +28,5 @@ module.exports = {
         },
       },
     ],
-  },
-  //增加一個給devserver的設定
-  devServer: {
-    //指定開啟port為9000
-    port: 8080,
   },
 };
