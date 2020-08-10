@@ -2,9 +2,12 @@
 
 It is a todo list developed with `react.js`. You can add any task into the list, with comments and time. Modify task items, mark them as important or not, mark them as completed or not. You can also view all task that are work in progress or are completed.
 
+<img src="./info/demo.png" alt="drawing" width="500"/>
+
+
 Running the software:
 ```
-webpack-dev-server
+npm start run
 ```
 
 # Development notes
