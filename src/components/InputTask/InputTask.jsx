@@ -159,6 +159,7 @@ class ConnectInputTask extends React.Component {
   }
 }
 
+// mapDispatchToProps 定义了哪些用户的操作应该当作 Action，传给 Store
 const mapDispatchToProps = (dispatch) => {
   return {
     //使用dispatch呼叫事件addTodoList操作store
