@@ -28,4 +28,9 @@ module.exports = {
       },
     ],
   },
+  //增加一個給devserver的設定
+  devServer: {
+    //指定開啟port為9000
+    port: 8080,
+  },
 };
